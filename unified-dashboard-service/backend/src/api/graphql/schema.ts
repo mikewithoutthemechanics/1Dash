@@ -100,6 +100,51 @@ export const typeDefs = gql`
     timestamp: DateTime!
   }
 
+  type GitHubRepo {
+    id: ID!
+    name: String!
+    fullName: String!
+    private: Boolean!
+    htmlUrl: String!
+    description: String
+    language: String
+    stargazersCount: Int!
+    forksCount: Int!
+    openIssuesCount: Int!
+    updatedAt: DateTime!
+    pushedAt: DateTime!
+  }
+
+  type GitHubIssue {
+    id: ID!
+    number: Int!
+    title: String!
+    state: String!
+    htmlUrl: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    pullRequest: JSON
+  }
+
+  type VercelProject {
+    id: ID!
+    name: String!
+    framework: String
+    createdAt: DateTime!
+    updatedAt: DateTime!
+    latestDeployments: [VercelDeployment!]!
+  }
+
+  type VercelDeployment {
+    id: ID!
+    url: String!
+    state: String!
+    createdAt: DateTime!
+    ready: Float
+    buildingAt: Float
+    inspectorUrl: String
+  }
+
   type Query {
     # Unified dashboard
     dashboard: UnifiedDashboard!
@@ -117,6 +162,10 @@ export const typeDefs = gql`
     payments(limit: Int = 20): [Payment!]!
     aiAgentMetrics: [AIAgentMetrics!]!
     vpsMetrics: VPSMetrics!
+    githubRepos(limit: Int = 20): [GitHubRepo!]!
+    githubIssues(state: String = "open", limit: Int = 20): [GitHubIssue!]!
+    vercelProjects(limit: Int = 20): [VercelProject!]!
+    vercelDeployments(projectId: ID!, limit: Int = 10): [VercelDeployment!]!
     
     # Real-time data
     systemStatus(systemId: ID!): SystemIntegration!

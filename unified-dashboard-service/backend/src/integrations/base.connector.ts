@@ -68,13 +68,18 @@ export abstract class BaseConnector {
   protected async request<T>(
     method: string,
     endpoint: string,
-    data?: any
+    data?: any,
+    headers?: Record<string, string>
   ): Promise<T> {
     try {
       const response = await this.client.request({
         method,
         url: endpoint,
         data,
+        headers: {
+          ...this.config.headers,
+          ...(headers || {}),
+        },
       });
       return response.data as T;
     } catch (error: any) {

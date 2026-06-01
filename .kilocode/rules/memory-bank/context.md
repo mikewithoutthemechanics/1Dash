@@ -1,14 +1,10 @@
-# Active Context: Next.js Starter Template
+# Active Context: Next.js Integration Dashboard
 
 ## Current State
 
 **Last verified**: `bun typecheck && bun lint && bun run build` passes
 
-**unified-dashboard-service**: Included in repo for reference, but excluded from Next.js typecheck/build via `tsconfig.json` `exclude` and `eslint.config.mjs` `ignores` because it has a separate backend/frontend codebase inside the monorepo with its own type contracts.
-
-**Landing page**: Replaced the empty shell in `src/app/page.tsx` with a minimal starter layout containing a headline, description, two CTA links (`/dashboard` and `/api/health`), and a 3-column feature card grid.
-
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+**Focus**: Integration dashboard for GitHub and Vercel with a working `/dashboard` page and live API routes under `src/app/api/dashboard`.
 
 ## Recently Completed
 
@@ -18,74 +14,40 @@ The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. I
 - [x] ESLint configuration
 - [x] Memory bank documentation
 - [x] Recipe system for common features
+- [x] Landing page shell with CTA to `/dashboard`
+- [x] Added GitHub + Vercel API routes in Next.js
+- [x] Added `/dashboard` page with GitHub/Vercel connection flow
+- [x] Excluded legacy `unified-dashboard-service` from Next.js lint/typecheck/build
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
+| `src/app/page.tsx` | Home page with CTA | ✅ Ready |
+| `src/app/dashboard/page.tsx` | Live integration dashboard | ✅ Ready |
+| `src/app/api/dashboard/github/route.ts` | GitHub data proxy | ✅ Ready |
+| `src/app/api/dashboard/vercel/route.ts` | Vercel data proxy | ✅ Ready |
+| `src/lib/integrations/github.ts` | GitHub client helper | ✅ Ready |
+| `src/lib/integrations/vercel.ts` | Vercel client helper | ✅ Ready |
 | `.kilocode/` | AI context & recipes | ✅ Ready |
 
-## Current Focus
+## Integration Setup
 
-The template is ready. Next steps depend on user requirements:
+Users can paste provider tokens into the `/dashboard` UI. For production, replace the client-side token fields with OAuth logins using:
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+- GitHub: `https://api.github.com/login/oauth/authorize`
+- Vercel: hosted OAuth flow / Vercel SDK
 
-## Quick Start Guide
+## Next Steps
 
-### To add a new page:
-
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
-
-### To add components:
-
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
-
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+- Add auth wrapper around `/dashboard`
+- Add metrics caching + server-side token storage
+- Add more 3rd-party connectors (Slack, Linear, AWS Health)
+- Add tests for API routes
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
 | Initial | Template created with base setup |
+| 2026-06-01 | Added GitHub/Vercel integration dashboard |
