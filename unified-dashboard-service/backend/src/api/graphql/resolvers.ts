@@ -29,21 +29,21 @@ export const resolvers = {
       return DataAggregatorService.getAllSystems();
     },
 
-    metrics: async (_, { category, limit }) => {
-      return DataAggregatorService.getMetrics(category, limit);
+    metrics: async () => {
+      return DataAggregatorService.getAllMetrics();
     },
 
-    leads: async (_, { status, limit }) => {
+    leads: async (_: unknown, { status, limit }) => {
       const connector = DataAggregatorService.getConnector('real-estate');
       return connector.getLeads(status, limit);
     },
 
-    fitnessClasses: async (_, { start, end }) => {
+    fitnessClasses: async (_: unknown, { start, end }) => {
       const connector = DataAggregatorService.getConnector('fitness');
       return connector.getClasses(start, end);
     },
 
-    payments: async (_, { limit }) => {
+    payments: async (_: unknown, { limit }) => {
       const connector = DataAggregatorService.getConnector('payfast');
       return connector.getPayments(limit);
     },
@@ -61,7 +61,7 @@ export const resolvers = {
   },
 
   Mutation: {
-    syncSystem: async (_, { systemId }) => {
+    syncSystem: async (_: unknown, { systemId }) => {
       return DataAggregatorService.syncSystem(systemId);
     },
 
@@ -69,11 +69,11 @@ export const resolvers = {
       return DataAggregatorService.syncAllSystems();
     },
 
-    updateSystemConfig: async (_, { id, config }) => {
+    updateSystemConfig: async (_: unknown, { id, config }) => {
       return DataAggregatorService.updateSystemConfig(id, config);
     },
 
-    createLead: async (_, { input }) => {
+    createLead: async (_: unknown, { input }) => {
       const connector = DataAggregatorService.getConnector('real-estate');
       return connector.createLead(input);
     },
@@ -81,7 +81,7 @@ export const resolvers = {
 
   Subscription: {
     systemStatusUpdated: {
-      subscribe: async (_, { systemId }, { cache }) => {
+      subscribe: async (_: unknown, { systemId }, { cache }) => {
         const channel = systemId ? `system:${systemId}` : 'system:*';
         return cache.subscribe(channel);
       },

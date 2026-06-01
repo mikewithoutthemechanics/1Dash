@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [dashboard, setDashboard] = useState(data?.dashboard);
 
   useEffect(() => {
-    if (data) {
+    if (data && data.dashboard) {
       setDashboard(data.dashboard);
     }
   }, [data]);
@@ -21,6 +21,7 @@ export default function Dashboard() {
     if (subscriptionData?.systemStatusUpdated) {
       refetch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subscriptionData]);
 
   if (loading) {

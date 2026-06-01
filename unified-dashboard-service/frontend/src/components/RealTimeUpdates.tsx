@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface RealTimeUpdatesProps {
@@ -5,6 +6,8 @@ interface RealTimeUpdatesProps {
 }
 
 export function RealTimeUpdates({ updates }: RealTimeUpdatesProps) {
+  const [renderedAt] = useState(Date.now());
+
   return (
     <Card className="bg-gray-800 border-gray-700">
       <CardHeader>
@@ -17,8 +20,8 @@ export function RealTimeUpdates({ updates }: RealTimeUpdatesProps) {
               <strong>System Updated:</strong> {updates.systemStatusUpdated?.name}
             </p>
             <p className="text-xs text-gray-400">
-              Status: {updates.systemStatusUpdated?.status} • 
-              {new Date(updates.systemStatusUpdated?.lastSync || Date.now()).toLocaleTimeString()}
+              Status: {updates.systemStatusUpdated?.status} •
+              {new Date(updates.systemStatusUpdated?.lastSync || renderedAt).toLocaleTimeString()}
             </p>
           </div>
         ) : (

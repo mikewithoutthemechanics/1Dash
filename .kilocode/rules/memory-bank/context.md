@@ -2,7 +2,11 @@
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Last verified**: `bun typecheck && bun lint && bun run build` passes
+
+**unified-dashboard-service**: Included in repo for reference, but excluded from Next.js typecheck/build via `tsconfig.json` `exclude` and `eslint.config.mjs` `ignores` because it has a separate backend/frontend codebase inside the monorepo with its own type contracts.
+
+**Landing page**: Replaced the empty shell in `src/app/page.tsx` with a minimal starter layout containing a headline, description, two CTA links (`/dashboard` and `/api/health`), and a 3-column feature card grid.
 
 The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
 
