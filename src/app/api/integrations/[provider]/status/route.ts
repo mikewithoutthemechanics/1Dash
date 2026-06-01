@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { integrations } from '@/lib/integrations/registry';
 
-export async function GET(request: NextRequest) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ provider: string }> }
+) {
   try {
-    const provider = request.nextParams.provider as string;
+    const provider = (await context.params).provider;
     const client = integrations.get(provider);
 
     if (!client) {
